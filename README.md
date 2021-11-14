@@ -1,5 +1,5 @@
 # Lithon
-This is a very basic and bad work in progress programming language based in python
+This is a very basic and bad work in progress programming language based on python
 
 ## Documentation
 ### Functions and if statments:
@@ -21,32 +21,49 @@ output:
 **if:**
 checks if a statment is true and if it's false it will skip the next line
 
-Example:
+Example 1:
 
 input:
 ```
 if() 2 = 2
 print() 3
+print() 4
 ```
 
 output:
 ```
 3
+4
+```
+
+Example 2:
+
+input:
+```
+if() 2 = 3
+print() 3
+print() 4
+```
+output:
+```
+4
 ```
 
 ### Counting:
 
-"+" = addition
+**operators:**
 
-"-" = subtraktion
+" + " = addition
 
-"*" = multiplication
+" - " = subtraktion
 
-"/" = division
+" * " = multiplication
 
-"^" = exponents
+" / " = division
 
-"'" = radicals
+" ^ " = exponents
+
+" ' " = radicals
 
 Example:
 
@@ -62,7 +79,7 @@ output:
 
 ### Variables:
 
-variables can be any name made up of letters
+variables can be any name made up of letters and underscores as long as it doesn't have the same name as a funtion or if statments
 
 Example:
 
