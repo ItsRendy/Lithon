@@ -6,7 +6,6 @@ with open("code.txt") as word_list:
 def error(tokens, line):
   print("\033[31m" + "invalid code:", tokens, "line:", line + 1, "" + "\033[0m")
   
-alfabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 used_variable_names = []
 operators = ["+", "-", "*", "/", "^", "'"]
 symbols = ["=", "(", ")"]
@@ -26,9 +25,10 @@ def token_reader(tokens, line):
       for y in operators:
         if x == y:
           is_calculating = True
-
+    
+    #functions
     while index < len(tokens):
-      if tokens[index] == "p" and tokens[index + 1] == "(" and tokens[index + 2] == ")":
+      if tokens[index] == "print" and tokens[index + 1] == "(" and tokens[index + 2] == ")":
         is_printing = True
         tokens.pop(index)
         tokens.pop(index)
@@ -37,17 +37,24 @@ def token_reader(tokens, line):
       index += 1
     index = 0
 
+    #Variable to value converter
     while index < len(tokens):
-      for y in used_variable_names:
-        if tokens[index] == y:
-          tokens.pop(index)
-          tokens.insert(index, globals()[y].value)
-          index = 0
-      index += 1
+        for x in used_variable_names:
+          if index == len(tokens) - 1 and tokens[index] == x:
+            tokens.pop(index)
+            tokens.insert(index, globals()[x].value)
+            index = 0
+            continue
+          if tokens[index] == x and tokens[index + 1] != "=":
+            tokens.pop(index)
+            tokens.insert(index, globals()[x].value)
+            index = 0
+        index += 1
     index = 0
-          
+
+    #Calculation
+    #Exponents and radicals
     while index < len(tokens) and is_calculating == True:
-      #Exponents and radicals
       if tokens[index] == "^":
         number += tokens[index - 1] ** tokens[index + 1] 
         tokens.pop(index - 1)
@@ -106,13 +113,15 @@ def token_reader(tokens, line):
       index += 1
     index = 0
 
+    #Variable setter
     for x in tokens:
-      for y in alfabet:
-        if x == y and tokens[index + 1] == "=":
-          globals()[y] = (variable(tokens[index + 2]))
-          used_variable_names.append(y)
+      if index < len(tokens) - 1:
+        if str(x).isalpha and tokens[index + 1] == "=":
+          globals()[x] = (variable(tokens[index + 2]))
+          used_variable_names.append(x)
       index += 1
     index = 0 
+
   except:
     error(tokens, line)
     return
@@ -125,7 +134,9 @@ for code in code_list:
   tokens = []
 
   build_number = 0
+  build_variable = ""
   is_building_number = False
+  is_building_variable = False
   for x in code:
     if x.isnumeric():
       build_number = build_number * 10 + int(x)
@@ -134,6 +145,14 @@ for code in code_list:
       tokens.append(build_number)
       build_number = 0
       is_building_number = False
+    
+    if x.isalpha():
+      build_variable += str(x) 
+      is_building_variable = True
+    elif is_building_variable:
+      tokens.append(build_variable)
+      build_variable = ""
+      is_building_variable = False
 
     for y in operators:
       if x == y:
@@ -141,14 +160,16 @@ for code in code_list:
     for y in symbols:
       if x == y:
         tokens.append(y)
-    for y in alfabet:
-      if x == y:
-        tokens.append(y)
 
   if is_building_number:
     tokens.append(build_number)
     build_number = 0
     is_building_number = False
+  
+  if is_building_variable:
+    tokens.append(build_variable)
+    build_variable = 0
+    is_building_variable = False
 
   read_tokens = token_reader(tokens, code_line)
   if read_tokens != None:
