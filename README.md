@@ -25,7 +25,7 @@ Example 1:
 
 input:
 ```
-if() 2 = 2
+if() 2 == 2
 print() 3
 print() 4
 ```
@@ -40,7 +40,7 @@ Example 2:
 
 input:
 ```
-if() 2 = 3
+if() 2 == 3
 print() 3
 print() 4
 ```
@@ -120,3 +120,32 @@ output:
 4
 ```
 So both of these work exactly the same so as long as there are varlues on both sides of operators, it's a very free language syntax vise
+
+### Errors:
+
+In case of an error so will it print an error in the console and skip that line and continue on
+
+Example 1:
+
+input:
+```
+if() 3 = 2
+print() 5
+```
+output:
+```
+'==' missing from if statment: [ if() 3 = 2 ] line: [ 1 ]
+5
+```
+Example 2:
+
+input:
+```
+if() 3 == 2
+print() 5
+```
+output:
+```
+
+```
+it's going to print nothing because 3 does not equal 2 but in a case of an error it skips the entire if statment and goes to the next line where it says to print 5 so it does that
