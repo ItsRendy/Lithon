@@ -34,7 +34,8 @@ output:
 3
 ```
 
-#### Counting: 
+### Counting:
+
 "+" = addition
 
 "-" = subtraktion
@@ -59,7 +60,8 @@ output:
 3
 ```
 
-#### Variables:
+### Variables:
+
 variables can be any name made up of letters
 
 Example:
