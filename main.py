@@ -1,4 +1,4 @@
-print("Lithon 0.0.3 (default, Nov 14 2021, 03:31)")
+print("Lithon 0.0.4 (default, Nov 14 2021, 14:58)")
 
 with open("code.txt") as word_list:
     code_list = list(word_list.read().splitlines())
@@ -7,13 +7,9 @@ def error(line, error):
   #General
   if error == 1:
     print("\033[31m" + "invalid code: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
-  #Other stuff not made yet
+  #If statment
   if error == 2:
-    pass
-  
-used_variable_names = []
-operators = ["+", "-", "*", "/", "^", "'"]
-symbols = ["(", ")"]
+    print("\033[31m" + "'==' missing from if statment: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
 
 class variable:
   def __init__(self, value):
@@ -144,11 +140,15 @@ def token_reader(tokens, line):
 
     while index < len(tokens):
       if if_statment == True:
-        if tokens[index] == "==":
-          if tokens[index - 1] == tokens[index + 1]:
-            break
-          else:
-            return False
+        if "==" in tokens:
+          if tokens[index] == "==":
+            if tokens[index - 1] == tokens[index + 1]:
+              break
+            else:
+              return False
+        else:
+          error(line, 2)
+          return
       index += 1
     index = 0
 
@@ -161,6 +161,9 @@ def token_reader(tokens, line):
 #Tokens creator
 code_line = 0
 stop = None
+used_variable_names = []
+operators = ["+", "-", "*", "/", "^", "'"]
+symbols = ["(", ")"]
 for code in code_list:
   tokens = []
   build_number = 0
@@ -179,7 +182,7 @@ for code in code_list:
       build_number = 0
       is_building_number = False
     
-    if x.isalpha():
+    if x.isalpha() or x == "_":
       build_variable += str(x) 
       is_building_variable = True
     elif is_building_variable:
