@@ -115,6 +115,35 @@ output:
 4
 ```
 
+### Data Types
+
+There are only numerals and strings kind of exist as you can print variables without values and they won't be counted as a numeral but this means spaces don't excist
+
+Example 1:
+
+input:
+```
+a = Hello
+print() a
+```
+output:
+```
+Hello
+```
+
+Example 2
+
+input:
+```
+a = Hello World
+print() a
+```
+output:
+```
+Hello
+```
+it only prints "Hello" as Hello World gets split up into different variables so World is by it's own and does nothing
+
 ### Syntax:
 
 The syntax is very loose as you can put almost anything anywhere as long as there are values on both sides of an operator, so can you put you functions and if statments anywhere in the code
