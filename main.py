@@ -1,4 +1,4 @@
-print("Lithon 0.0.4 (default, Nov 14 2021, 14:58)")
+print("Lithon 0.0.5 (default, Nov 15 2021, 11:04)")
 
 with open("code.txt") as word_list:
     code_list = list(word_list.read().splitlines())
@@ -10,6 +10,11 @@ def error(line, error):
   #If statment
   if error == 2:
     print("\033[31m" + "'==' missing from if statment: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
+  #Inputs
+  if error == 3:
+    print("\033[31m" + "invalid input data type: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
+  if error == 4:
+    print("\033[31m" + "input variable cannot be a numeral: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
 
 class variable:
   def __init__(self, value):
@@ -21,6 +26,7 @@ def token_reader(tokens, line):
   is_calculating = False
   is_printing = False
   if_statment = False
+  is_input = False
 
   try:
     for x in tokens:
@@ -29,6 +35,7 @@ def token_reader(tokens, line):
           is_calculating = True
     
     #functions
+    #print
     while index < len(tokens):
       if tokens[index] == "print" and tokens[index + 1] == "(" and tokens[index + 2] == ")":
         is_printing = True
@@ -36,6 +43,41 @@ def token_reader(tokens, line):
         tokens.pop(index)
         tokens.pop(index)
         index = 0
+        break
+      index += 1
+    index = 0
+
+    #if statments
+    while index < len(tokens):
+      if tokens[index] == "if" and tokens[index + 1] == "(" and tokens[index + 2] == ")":
+        if_statment = True
+        tokens.pop(index)
+        tokens.pop(index)
+        tokens.pop(index)
+        index = 0
+        break
+      index += 1
+    index = 0
+
+    #input
+    while index < len(tokens):
+      if tokens[index] == "input" and tokens[index + 1] == "(" and tokens[index + 4] == ")":
+        is_input = True
+        input_variable = tokens[index + 2]
+        input_type = tokens[index + 3]
+        if input_type < 1 or input_type > 3 or isinstance(input_type, int) == False:
+          error(line, 3)
+          return
+        if isinstance(input_variable, int) or isinstance(input_variable, float):
+          error(line, 4)
+          return
+        tokens.pop(index)
+        tokens.pop(index)
+        tokens.pop(index)
+        tokens.pop(index)
+        tokens.pop(index)
+        index = 0
+        break
       index += 1
     index = 0
 
@@ -119,25 +161,13 @@ def token_reader(tokens, line):
     for x in tokens:
       if index < len(tokens) - 1:
         if str(x).isalpha and tokens[index + 1] == "=":
-          globals()[x] = (variable(tokens[index + 2]))
+          globals()[x] = variable(tokens[index + 2])
           used_variable_names.append(x)
       index += 1
     index = 0 
 
-    #if statments
-    while index < len(tokens):
-      if tokens[index] == "if" and tokens[index + 1] == "(" and tokens[index + 2] == ")":
-        if_statment = True
-        tokens.pop(index)
-        tokens.pop(index)
-        tokens.pop(index)
-        index = 0
-        break
-      else:
-        if_statment = False
-      index += 1
-    index = 0
-
+    
+    #If statment funktion
     while index < len(tokens):
       if if_statment == True:
         if "==" in tokens:
@@ -149,6 +179,24 @@ def token_reader(tokens, line):
         else:
           error(line, 2)
           return
+      index += 1
+    index = 0
+
+    #Input funktion
+    while index < len(tokens):
+      if is_input == True:
+        input_text = " ".join(str(x) for x in tokens)
+        input_text = input_text.ljust(len(input_text) + 1)
+        if input_type == 1:
+          Input = str(input(input_text))
+        if input_type == 2:
+          Input = float(input(input_text))
+        if input_type == 3:
+          Input = int(input(input_text))
+        globals()[input_variable] = variable(Input)
+        used_variable_names.append(input_variable)
+        tokens = []
+        break
       index += 1
     index = 0
 

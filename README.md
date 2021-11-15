@@ -49,6 +49,27 @@ output:
 4
 ```
 
+**input:**
+it asks the user something with a promt
+
+Example:
+
+input:
+```
+input(a 3) Write a number
+print() Your number times 2 is a * 2
+```
+and if we enter 3
+
+output:
+```
+Write a number 3
+Your number times 2 is 6
+```
+so the a in input() is the variable you want the input to be stored in
+and the 3 is the data type where 1 = string 2 = float and 3 = integer
+the text after input() is the promt you want to ask the user
+
 ### Counting:
 
 **operators:**
