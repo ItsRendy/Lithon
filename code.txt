@@ -1,2 +1,7 @@
-input(a 3) Write a number
-print() Your number times 2 is a * 2
+input(a 3) integer pls
+
+if() a == 6
+print() Badass number sir
+
+if() a != 6
+print() Inferior number 

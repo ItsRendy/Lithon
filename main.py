@@ -1,7 +1,9 @@
-print("Lithon 0.0.5 (default, Nov 15 2021, 11:04)")
+print("Lithon 0.1.2 (default, Nov 16 2021, 23:32)")
 
 with open("code.txt") as word_list:
     code_list = list(word_list.read().splitlines())
+
+variables = {}
 
 def error(line, error):
   #General
@@ -9,16 +11,12 @@ def error(line, error):
     print("\033[31m" + "invalid code: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
   #If statment
   if error == 2:
-    print("\033[31m" + "'==' missing from if statment: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
+    print("\033[31m" + "'==' or '!=' missing from if statment: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
   #Inputs
   if error == 3:
     print("\033[31m" + "invalid input data type: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
   if error == 4:
     print("\033[31m" + "input variable cannot be a numeral: [", code_list[line], "] line: [", line + 1, "]" + "\033[0m")
-
-class variable:
-  def __init__(self, value):
-    self.value = value
 
 def token_reader(tokens, line):
   index = 0
@@ -33,6 +31,21 @@ def token_reader(tokens, line):
       for y in operators:
         if x == y:
           is_calculating = True
+
+    #Variable to value converter
+    while index < len(tokens):
+        for x in used_variable_names:
+          if index == len(tokens) - 1 and tokens[index] == x:
+            tokens.pop(index)
+            tokens.insert(index, variables[x])
+            index = 0
+            continue
+          if tokens[index] == x and tokens[index + 1] != "=":
+            tokens.pop(index)
+            tokens.insert(index, variables[x])
+            index = 0
+        index += 1
+    index = 0
     
     #functions
     #print
@@ -79,21 +92,6 @@ def token_reader(tokens, line):
         index = 0
         break
       index += 1
-    index = 0
-
-    #Variable to value converter
-    while index < len(tokens):
-        for x in used_variable_names:
-          if index == len(tokens) - 1 and tokens[index] == x:
-            tokens.pop(index)
-            tokens.insert(index, globals()[x].value)
-            index = 0
-            continue
-          if tokens[index] == x and tokens[index + 1] != "=":
-            tokens.pop(index)
-            tokens.insert(index, globals()[x].value)
-            index = 0
-        index += 1
     index = 0
 
     #Calculation
@@ -161,7 +159,7 @@ def token_reader(tokens, line):
     for x in tokens:
       if index < len(tokens) - 1:
         if str(x).isalpha and tokens[index + 1] == "=":
-          globals()[x] = variable(tokens[index + 2])
+          variables[x] = tokens[index + 2]
           used_variable_names.append(x)
       index += 1
     index = 0 
@@ -170,9 +168,14 @@ def token_reader(tokens, line):
     #If statment funktion
     while index < len(tokens):
       if if_statment == True:
-        if "==" in tokens:
+        if "==" in tokens or "!=" in tokens:
           if tokens[index] == "==":
             if tokens[index - 1] == tokens[index + 1]:
+              break
+            else:
+              return False
+          if tokens[index] == "!=":
+            if tokens[index - 1] != tokens[index + 1]:
               break
             else:
               return False
@@ -183,9 +186,12 @@ def token_reader(tokens, line):
     index = 0
 
     #Input funktion
-    while index < len(tokens):
+    while index < len(tokens) + 1:
       if is_input == True:
-        input_text = " ".join(str(x) for x in tokens)
+        if len(tokens) == 0:
+          input_text = "input:"
+        else:
+          input_text = " ".join(str(x) for x in tokens) 
         input_text = input_text.ljust(len(input_text) + 1)
         if input_type == 1:
           Input = str(input(input_text))
@@ -193,7 +199,7 @@ def token_reader(tokens, line):
           Input = float(input(input_text))
         if input_type == 3:
           Input = int(input(input_text))
-        globals()[input_variable] = variable(Input)
+        variables[input_variable] = Input
         used_variable_names.append(input_variable)
         tokens = []
         break
@@ -238,7 +244,7 @@ for code in code_list:
       build_variable = ""
       is_building_variable = False
     
-    if x == "=":
+    if x == "=" or x == "!":
       build_symbol += str(x) 
       is_building_symbol = True
     elif is_building_symbol:
