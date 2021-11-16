@@ -19,8 +19,7 @@ output:
 ```
 
 **if:**
-if you use == it will check if a statment is true and if it's false it will skip the next line
-if you use != it will check if a statment is false and if it's true it will skip the next line
+if you use == it will check if a statement is true and if it's false it will skip the next line and if you use != it will check if a statement is false and if it's true it will skip the next line
 
 Example 1:
 
@@ -69,6 +68,7 @@ Your number times 2 is 6
 ```
 so the a in input() is the variable you want the input to be stored in
 and the 3 is the data type where 1 = string 2 = float and 3 = integer
+
 the text after input() is the promt you want to ask the user if there is no promt it will default to "input:"
 
 ### Counting:
@@ -118,7 +118,7 @@ output:
 
 ### Data Types
 
-There are only numerals and strings kind of exist as you can print variables without values and they won't be counted as a numerals
+There are only numerals, and strings kind of exist as you can print variables without a numeral value
 
 Example 1:
 
@@ -144,7 +144,7 @@ output:
 Hello
 ```
 it only prints "Hello" as Hello World gets split up into different variables so World is by it's own and does nothing
-but you can do print things like this
+but you can print things like this
 
 Example 3:
 
@@ -181,7 +181,7 @@ output:
 ```
 4
 ```
-So both of these work exactly the same so as long as there are varlues on both sides of operators, it's a very free language syntax vise
+So both of these work exactly the same so as long as there are values on both sides of operators, it's a very free language syntax vise
 
 ### Errors:
 
@@ -196,7 +196,7 @@ print() 5
 ```
 output:
 ```
-'==' or '!=' missing from if statment: [ if() 3 = 2 ] line: [ 1 ]
+'==' or '!=' missing from if statement: [ if() 3 = 2 ] line: [ 1 ]
 5
 ```
 Example 2:
@@ -210,4 +210,4 @@ output:
 ```
 
 ```
-it's going to print nothing because 3 does not equal 2 but in a case of an error it skips the entire if statment and goes to the next line where it says to print 5 so it does that
+it's going to print nothing because 3 does not equal 2 but in a case of an error it skips the entire if statement and goes to the next line where it says to print 5 so it does that
