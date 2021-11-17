@@ -189,10 +189,11 @@ def token_reader(tokens, line):
     while index < len(tokens) + 1:
       if is_input == True:
         if len(tokens) == 0:
-          input_text = "input:"
+          input_text = "input"
         else:
           input_text = " ".join(str(x) for x in tokens) 
         input_text = input_text.ljust(len(input_text) + 1, ":")
+        input_text = input_text.ljust(len(input_text) + 1,)
         if input_type == 1:
           Input = str(input(input_text))
         if input_type == 2:

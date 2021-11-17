@@ -1,8 +1,8 @@
 int = 3
 input(a int) What is your favorite integer 
 
-if() a == 6
-print() Badass number sir
+if() a == 69
+print() a is badass sir
 
-if() a != 6
-print() Inferior number 
+if() a != 69
+print() a is inferior 
