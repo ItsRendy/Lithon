@@ -101,7 +101,7 @@ output:
 
 ### Variables:
 
-variables can be any name made up of letters and underscores as long as it doesn't have the same name as a funtion or if statments
+variables can be any name made up of letters and underscores as long as it doesn't have the same name as a funtion or if statements
 
 Example:
 
