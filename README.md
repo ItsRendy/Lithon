@@ -63,7 +63,7 @@ and if we enter 3
 
 output:
 ```
-Write a number 3
+Write a number: 3
 Your number times 2 is 6
 ```
 so the a in input() is the variable you want the input to be stored in
