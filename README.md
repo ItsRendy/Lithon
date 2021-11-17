@@ -1,5 +1,5 @@
-# Lithon
-This is a very basic and bad work in progress programming language based on python
+# Lithon v.0.1.4
+This is a very basic and bad work in progress programming language based in python that i made as a fun project 
 
 ## Documentation
 ### Functions and if statments:
