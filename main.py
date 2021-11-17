@@ -78,7 +78,7 @@ def token_reader(tokens, line):
         is_input = True
         input_variable = tokens[index + 2]
         input_type = tokens[index + 3]
-        if input_type < 1 or input_type > 3 or isinstance(input_type, int) == False:
+        if input_type not in ["int", "float", "str"]:
           error(line, 3)
           return
         if isinstance(input_variable, int) or isinstance(input_variable, float):
@@ -194,11 +194,11 @@ def token_reader(tokens, line):
           input_text = " ".join(str(x) for x in tokens) 
         input_text = input_text.ljust(len(input_text) + 1, ":")
         input_text = input_text.ljust(len(input_text) + 1,)
-        if input_type == 1:
+        if input_type == "str":
           Input = str(input(input_text))
-        if input_type == 2:
+        if input_type == "float":
           Input = float(input(input_text))
-        if input_type == 3:
+        if input_type == "int":
           Input = int(input(input_text))
         variables[input_variable] = Input
         used_variable_names.append(input_variable)

@@ -56,7 +56,7 @@ Example:
 
 input:
 ```
-input(a 3) Write a number
+input(a int) Write a number
 print() Your number times 2 is a * 2
 ```
 and if we enter 3
@@ -67,7 +67,7 @@ Write a number: 3
 Your number times 2 is 6
 ```
 so the a in input() is the variable you want the input to be stored in
-and the 3 is the data type where 1 = string 2 = float and 3 = integer
+and the 3 is the data type where str = string float = float and int = integer
 
 the text after input() is the promt you want to ask the user if there is no promt it will default to "input:"
 

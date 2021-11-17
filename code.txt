@@ -1,8 +1,7 @@
-int = 3
-input(a int) What is your favorite integer 
+input(answear int) What is your favorite integer 
 
-if() a == 69
-print() a is badass sir
+if() answear == 69
+print() answear is a badass number sir
 
-if() a != 69
-print() a is inferior 
+if() answear != 69
+print() answear is a inferior number  
